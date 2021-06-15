@@ -29,7 +29,7 @@ $api_key= $sensor = $location = $value1 = $value2 = $value3 = "";
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $api_key = test_input($_POST["api_key"]);
     if($api_key == $api_key_value) {
-        $sensor = test_input($_POST["sensor"]);
+        $sensor = test_input($_POST["etat"]);
 
         // Create connection
         $conn = new mysqli($servername, $username, $password, $dbname);
