@@ -24,12 +24,14 @@ $password = "";
 // If you change this value, the ESP32 sketch needs to match
 $api_key_value = "NewVibe";
 
-$api_key= $sensor = $location = $value1 = $value2 = $value3 = "";
+$api_key= $etat = $prod = "";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $api_key = test_input($_POST["api_key"]);
     if($api_key == $api_key_value) {
-        $sensor = test_input($_POST["etat"]);
+        $etat = test_input($_POST["etat"]);
+        $prod = test_input($_POST["prod"]);
+
 
         // Create connection
         $conn = new mysqli($servername, $username, $password, $dbname);
@@ -38,14 +40,25 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             die("Connection failed: " . $conn->connect_error);
         }
 
-        $sql = "INSERT INTO SensorData (sensor)
-        VALUES ('" . $sensor . "')";
+        $req1 = "INSERT INTO etat_log (etat)
+        VALUES ('" . $etat . "')";
 
-        if ($conn->query($sql) === TRUE) {
+        $req2 ="INSERT INTO production_log (prod)
+        VALUES ('" . $prod . "');";
+
+
+        if ($conn->query($req1) === TRUE) {
             echo "New record created successfully";
         }
         else {
-            echo "Error: " . $sql . "<br>" . $conn->error;
+            echo "Error: " . $req1 . "<br>" . $conn->error;
+        }
+
+        if ($conn->query($req2) === TRUE) {
+            echo "New record created successfully";
+        }
+        else {
+            echo "Error: " . $req2 . "<br>" . $conn->error;
         }
 
         $conn->close();
