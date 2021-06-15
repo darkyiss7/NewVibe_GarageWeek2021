@@ -1,0 +1,84 @@
+body{
+  background-color: #DDD;
+  overflow-x: hidden;
+}
+
+nav div ul li {
+  color: #EEE;
+}
+
+nav div li{
+  padding: 20px;
+  font-size: 20px;
+}
+
+img{
+  width: 100px;
+}
+
+.navbar-brand{
+  font-size: 30px;
+}
+
+.perc{
+  font-size: 50px;
+}
+
+.slide_right {
+    animation-name: slide_right;
+    -webkit-animation-name: slide_right;
+    animation-duration: 1s;
+    -webkit-animation-duration: 1s;
+    visibility: visible;
+  }
+
+.slide_left{
+      animation-name: slide_left;
+      -webkit-animation-name: slide_left;
+      animation-duration: 1s;
+      -webkit-animation-duration: 1s;
+      visibility: visible;
+}
+
+  @keyframes slide_right {
+    0% {
+      opacity: 0;
+      transform: translateX(30%);
+    }
+    100% {
+      opacity: 1;
+      transform: translateX(0%);
+    }
+  }
+  @-webkit-keyframes slide_right {
+    0% {
+      opacity: 0;
+      -webkit-transform: translateX(30%);
+    }
+    100% {
+      opacity: 1;
+      -webkit-transform: translateX(0%);
+    }
+  }
+
+  @keyframes slide_left {
+    0% {
+      opacity: 0;
+      transform: translateX(-30%);
+    }
+    100% {
+      opacity: 1;
+      transform: translateX(0%);
+    }
+  }
+
+  @-webkit-keyframes slide_left {
+    0% {
+      opacity: 0;
+      -webkit-transform: translateX(-30%);
+    }
+    100% {
+      opacity: 1;
+      -webkit-transform: translateX(0%);
+    }
+  }

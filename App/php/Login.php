@@ -17,7 +17,7 @@
     <div class="container text-center slide" id='formulaire'>
       <h2 id="bienvenue" >Bienvenue !</h2>
 
-      <form action="validation.php" method="POST">
+      <form onsubmit="form_submit();" action="validation.php" method="POST">
         <div class="form-group">
           <label for="id" >ID :</label>
           <input type="text" class="form-control" id="id" placeholder="Entrez votre ID" name="id" required>
@@ -26,7 +26,7 @@
           <label for="password">Mot de passe :</label>
           <input type="password" class="form-control" id="pwd" placeholder="Entrez votre mot de passe" name="password" required>
         </div>
-        <button type="submit" class="btn btn-primary" onclick="form_submit()">Valider</button>
+        <button type="submit" class="btn btn-primary">Valider</button>
       </form>
 
           <?php

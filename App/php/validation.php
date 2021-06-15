@@ -1,9 +1,8 @@
+
 <?php
-echo"start ";
 session_start();
 if(isset($_POST['id']) && isset($_POST['password']))
 {
-  echo"connection ";
 
     // connexion à la base de données
     $db_username = 'root';
@@ -20,8 +19,6 @@ if(isset($_POST['id']) && isset($_POST['password']))
 
     if($id !== "" && $password !== "")
     {
-      echo"verification ";
-
         $requete = "SELECT count(*) FROM utilisateurs where
               nom = '".$id."' and password = '".$password."' ";
         $exec_requete = mysqli_query($db,$requete);
@@ -29,7 +26,6 @@ if(isset($_POST['id']) && isset($_POST['password']))
         $count = $reponse['count(*)'];
         if($count!=0) // nom d'utilisateur et mot de passe correctes
         {
-          echo"comptecheck ";
            $_SESSION['id'] = $id;
            header("Location: Dashboard_id=$id.php");
         }
