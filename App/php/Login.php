@@ -12,7 +12,15 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
   <link rel="stylesheet" href="../css/css_formulaire.css">
-  <script src="../scripts/script_formulaire.js" charset="utf-8"></script>
+
+ <script type="text/javascript">
+ function form_submit() {
+     document.getElementById('formulaire').classList.add("slide_back");
+     setTimeout(function () {
+       document.getElementById('formulaire').hidden=true;
+     },1500);
+ }
+ </script>
 </head>
 
 <body style="background-color:#DDD;">
