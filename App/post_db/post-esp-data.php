@@ -1,6 +1,4 @@
 <?php
-
-
 $servername = "localhost";
 $dbname = "new_vibe_db";
 $username = "root";

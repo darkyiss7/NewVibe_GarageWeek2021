@@ -1,6 +1,13 @@
-body{
-  background-color: #DDD;
+
+#formulaire{
+
+  position: absolute;
+    top: 50%;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
 }
+
 .slide {
   animation-name: slide;
   -webkit-animation-name: slide;

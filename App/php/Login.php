@@ -11,11 +11,11 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
-  <link rel="stylesheet" href="../css/css_formumaire.css">
+  <link rel="stylesheet" href="../css/css_formulaire.css">
   <script src="../scripts/script_formulaire.js" charset="utf-8"></script>
 </head>
 
-<body>
+<body style="background-color:#DDD;">
   <div class="container text-center slide" id='formulaire'>
 
     <img src="../images/logo+slogan.png" style="margin:auto;margin-right:10px;" width="300" height="300" alt="">
