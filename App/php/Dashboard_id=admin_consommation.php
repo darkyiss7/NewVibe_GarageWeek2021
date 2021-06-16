@@ -12,7 +12,88 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
   <link rel="stylesheet" href="../css/bootstrap.min.css">*
-  <link rel="stylesheet" href="../css/style_client.css">
+  <style media="screen">
+  body{
+    background-color: #DDD;
+  }
+
+  nav div ul li {
+    color: #EEE;
+  }
+
+  nav div div li{
+    padding-left: 50px;
+    font-size: 20px;
+  }
+
+  .navbar-brand{
+    font-size: 30px;
+  }
+
+  #perc_don,#perc_conso,#perc_prod,#perc_rec{
+    font-size: 50px;
+  }
+
+  .slide_right {
+      animation-name: slide_right;
+      -webkit-animation-name: slide_right;
+      animation-duration: 1s;
+      -webkit-animation-duration: 1s;
+      visibility: visible;
+    }
+
+  .slide_left{
+        animation-name: slide_left;
+        -webkit-animation-name: slide_left;
+        animation-duration: 1s;
+        -webkit-animation-duration: 1s;
+        visibility: visible;
+  }
+
+    @keyframes slide_right {
+      0% {
+        opacity: 0;
+        transform: translateX(30%);
+      }
+      100% {
+        opacity: 1;
+        transform: translateX(0%);
+      }
+    }
+    @-webkit-keyframes slide_right {
+      0% {
+        opacity: 0;
+        -webkit-transform: translateX(30%);
+      }
+      100% {
+        opacity: 1;
+        -webkit-transform: translateX(0%);
+      }
+    }
+
+    @keyframes slide_left {
+      0% {
+        opacity: 0;
+        transform: translateX(-30%);
+      }
+      100% {
+        opacity: 1;
+        transform: translateX(0%);
+      }
+    }
+
+    @-webkit-keyframes slide_left {
+      0% {
+        opacity: 0;
+        -webkit-transform: translateX(-30%);
+      }
+      100% {
+        opacity: 1;
+        -webkit-transform: translateX(0%);
+      }
+    }
+
+  </style>
   </head>
   <body>
   <nav class="navbar navbar-expand-lg navbar-dark bg-success" style="border-radius:0%;">
