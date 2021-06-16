@@ -209,7 +209,6 @@ if ($conn->connect_error) {
 }
 
 $req1 = "SELECT * FROM production_log;";
-$req2 = "SELECT * FROM etat_log;";
 $req3 = "SELECT * FROM consommations_log WHERE id_maison = 1;";
 
 $row_etat_log=$row_production_log=$row_conso_log=[];
@@ -221,12 +220,7 @@ if ($result1 = $conn->query($req1)) {
     }
     $result1->free();
 }
-if ($result2 = $conn->query($req2)) {
-    while ($row = $result2->fetch_assoc()) {
-        array_push($row_etat_log,$row);
-    }
-    $result2->free();
-}
+
 if ($result3 = $conn->query($req3)) {
     while ($row = $result3->fetch_assoc()) {
         array_push($row_conso_log ,$row);
