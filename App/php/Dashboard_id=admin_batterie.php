@@ -24,14 +24,15 @@
   <div class="collapse navbar-collapse flex-row d-flex" id="navbarNavDropdown">
   <div>
     <ul class="navbar-nav">
-      <li class="nav-item" >
+
+      <li class="nav-item " >
         <a class="nav-link" href="Dashboard_id=admin_consommation.php" >CONSOMMATION <span class="sr-only">(current)</span></a>
       </li>
-      <li class="nav-item">
+      <li class="nav-item ">
         <a class="nav-link" href="Dashboard_id=admin_production.php">PRODUCTION</a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" href="Dashboard_id=admin_batterie.php">CHARGE BATTERIE</a>
+      <li class="nav-item active">
+        <a class="nav-link" href="#">CHARGE BATTERIE</a>
       </li>
       </div>
       <div class="justify-content-end navbar-collapse">
@@ -53,6 +54,12 @@
 </nav>
 
 
+<div class="container">
+
+
+<canvas id="line-chart_1" width="800" height="450"></canvas>
+</div>
+
 <script type="text/javascript">
 <?php
 
@@ -72,59 +79,59 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-$req1 = "SELECT * FROM production_log;";
-$req2 = "SELECT * FROM etat_log;";
-$req3 = "SELECT * FROM batterie_log;";
+$req1 = "SELECT * FROM batterie_log;";
 
-$row_etat_log=$row_production_log=$row_batterie_log=[];
+$row_batterie_log=[];
 
 if ($result1 = $conn->query($req1)) {
     while ($row = $result1->fetch_assoc()) {
-        array_push($row_production_log,$row);
+        array_push($row_batterie_log,$row);
 
     }
     $result1->free();
 }
-if ($result2 = $conn->query($req2)) {
-    while ($row = $result2->fetch_assoc()) {
-        array_push($row_etat_log,$row);
-    }
-    $result2->free();
-}
-if ($result3 = $conn->query($req3)) {
-    while ($row = $result3->fetch_assoc()) {
-        array_push($row_batterie_log ,$row);
-    }
-    $result3->free();
-}
+
+
+
 
 $conn->close();
 ?>
 
-var etats = <?php echo json_encode($row_etat_log); ?>;
-var prods = <?php echo json_encode($row_production_log); ?>;
-var batt =<?php echo json_encode($row_batterie_log); ?>;
-console.log(etats);
-console.log(prods);
+var batt = <?php echo json_encode($row_batterie_log); ?>;
+
+console.log("energie de la batterie :")
 console.log(batt);
 
-var prod_maison1 = [];
-var prod_maison2 = [];
 
-prods.forEach((k, i) => {
-  if (prods[i].id_maison==1) {
-    prod_maison1.push(prods[i].prod);
-  }else {
-    prod_maison2.push(prods[i].prod);
+var label_1=[];
+
+for (i in batt){
+  label_1.push("");
+}
+
+
+new Chart(document.getElementById("line-chart_1"), {
+type: 'line',
+data: {
+  labels: label_1,
+  datasets: [{
+      data: batt,
+      label: "Energie de la batterie",
+      borderColor: "#3e95cd",
+      fill: false
+    }
+  ]
+},
+options: {
+  title: {
+    display: true,
+    text: 'Energie'
   }
+}
 });
 
-
-console.log("production maison 1 :")
-console.log(prod_maison1);
-console.log("production maison 2 :")
-console.log(prod_maison2);
-
 </script>
+
+
   </body>
 </html>
