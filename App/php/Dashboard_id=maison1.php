@@ -2,7 +2,7 @@
 <html lang="fr" dir="ltr">
   <head>
     <meta charset="utf-8">
-    <title></title>
+    <title>New Vibe</title>
     <link rel="icon" href="../images/NewVibe_logo.png">
 
     <meta name="viewport" content="width=device-width, initial-scale=1">

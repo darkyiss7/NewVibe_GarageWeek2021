@@ -1,27 +1,11 @@
 <?php
 
-/*
-  Rui Santos
-  Complete project details at https://RandomNerdTutorials.com/esp32-esp8266-mysql-database-php/
-
-  Permission is hereby granted, free of charge, to any person obtaining a copy
-  of this software and associated documentation files.
-
-  The above copyright notice and this permission notice shall be included in all
-  copies or substantial portions of the Software.
-*/
 
 $servername = "localhost";
-
-// REPLACE with your Database name
 $dbname = "new_vibe_db";
-// REPLACE with Database user
 $username = "root";
-// REPLACE with Database user password
 $password = "";
 
-// Keep this API Key value to be compatible with the ESP32 code provided in the project page.
-// If you change this value, the ESP32 sketch needs to match
 $api_key_value = "NewVibe";
 
 $api_key= $etat = $prod = "";
@@ -31,11 +15,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if($api_key == $api_key_value) {
         $etat = test_input($_POST["etat"]);
         $prod = test_input($_POST["prod"]);
+        $maison_id = test_input($_POST["id_maison"]);
+        $conso = test_input($_POST["conso"]);
+        $batt = test_input($_POST["energie"]);
 
-
-        // Create connection
+        // Connection
         $conn = new mysqli($servername, $username, $password, $dbname);
-        // Check connection
+        // Connection vérif
         if ($conn->connect_error) {
             die("Connection failed: " . $conn->connect_error);
         }
@@ -43,23 +29,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $req1 = "INSERT INTO etat_log (etat)
         VALUES ('" . $etat . "')";
 
-        $req2 ="INSERT INTO production_log (prod)
-        VALUES ('" . $prod . "');";
+        $req2 ="INSERT INTO production_log (prod,id_maison)
+        VALUES ('" . $prod . "','" . $maison_id . "')";
 
+        $req3 ="INSERT INTO consommations_log (conso,id_maison)
+        VALUES ('" . $conso . "','" . $maison_id . "')";
 
-        if ($conn->query($req1) === TRUE) {
-            echo "New record created successfully";
-        }
-        else {
-            echo "Error: " . $req1 . "<br>" . $conn->error;
-        }
+        $req4 ="INSERT INTO batterie_log (energie)
+        VALUES ('" . $batt . "')";
 
-        if ($conn->query($req2) === TRUE) {
-            echo "New record created successfully";
-        }
-        else {
-            echo "Error: " . $req2 . "<br>" . $conn->error;
-        }
+        // On lance les reqs
+        $conn->query($req1);
+        $conn->query($req2);
+        $conn->query($req3);
+        $cons->query($req4);
 
         $conn->close();
     }
