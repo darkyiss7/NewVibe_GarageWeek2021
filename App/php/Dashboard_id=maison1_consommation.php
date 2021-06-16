@@ -24,13 +24,13 @@
   <div class="collapse navbar-collapse flex-row d-flex" id="navbarNavDropdown">
   <div>
     <ul class="navbar-nav">
-      <li class="nav-item active" >
-        <a class="nav-link" href="#">DASHBOARD</a>
-      </li>
       <li class="nav-item" >
-        <a class="nav-link" href="Dashboard_id=maison1_consommation.php" >CONSOMMATION <span class="sr-only">(current)</span></a>
+        <a class="nav-link" href="Dashboard_id=maison1.php">DASHBOARD</a>
       </li>
-      <li class="nav-item">
+      <li class="nav-item active" >
+        <a class="nav-link" href="#" >CONSOMMATION <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item ">
         <a class="nav-link" href="Dashboard_id=maison1_production.php">PRODUCTION</a>
       </li>
       <li class="nav-item">
@@ -58,51 +58,12 @@
   </div>
 </nav>
 
-<div id="services" class="container-fluid text-center" >
-  <br>
-  <h1>DASHBOARD</h2>
-  <br>
-  <h2>Résumé des activités :</h4>
-  <br><br>
-  <div class="row ">
-    <div class="col-sm-6 slide_left">
-      <img src="../images/thunderbolt.png" width="120" height="120" alt="ENERGIE CONSOME"> <none class="perc">n/a</none>
-      <br>
-      <h4>ENERGIE CONSOMMEE</h4>
-      <p></p>
-      <br><br><br><br>
-    </div>
 
-    <div class="col-sm-6 slide_right">
-      <img src="../images/solar-panel.png" width="120" height="120" alt="ENERGIE PRODUITE"> <none class="perc">n/a</none>
-      <br>
-      <h4>ENERGIE PRODUITE</h4>
-      <p></p>
-      <br><br><br><br>
-    </div>
+<div class="container">
 
-    <div class="col-sm-6 slide_left">
-      <img src="../images/bolt.png" width="120" height="120" alt="ENERGIE RECUE"> <none class="perc">n/a</none>
-      <br>
-      <h4>ENERGIE RECUE</h4>
-      <p></p>
-      <br><br><br><br>
-  </div>
 
-    <div class="col-sm-6 slide_right">
-      <img src="../images/bolt.png"  width="120" height="120" alt="ENERGIE DONNEE"> <none class="perc">n/a</none>
-      <br>
-      <h4>ENERGIE DONNEE</h4>
-      <p></p>
-      <br><br><br><br>
-    </div>
-  </div>
-
+<canvas id="line-chart_1" width="800" height="450"></canvas>
 </div>
-
-<canvas hidden id="line-chart_1" width="800" height="450"></canvas>
-
-<canvas hidden id="line-chart_2" width="800" height="450"></canvas>
 
 <script type="text/javascript">
 <?php
@@ -123,63 +84,67 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-$req1 = "SELECT * FROM production_log;";
-$req2 = "SELECT * FROM etat_log;";
-$req3 = "SELECT * FROM batterie_log;";
+$req1 = "SELECT * FROM consommations_log;";
 
-$row_etat_log=$row_production_log=$row_batterie_log=[];
+
+$row_conso_log=[];
 
 if ($result1 = $conn->query($req1)) {
     while ($row = $result1->fetch_assoc()) {
-        array_push($row_production_log,$row);
-
+        array_push($row_conso_log,$row);
     }
     $result1->free();
 }
-if ($result2 = $conn->query($req2)) {
-    while ($row = $result2->fetch_assoc()) {
-        array_push($row_etat_log,$row);
-    }
-    $result2->free();
-}
-if ($result3 = $conn->query($req3)) {
-    while ($row = $result3->fetch_assoc()) {
-        array_push($row_batterie_log ,$row);
-    }
-    $result3->free();
-}
-
-
 
 $conn->close();
 ?>
 
-var etats = <?php echo json_encode($row_etat_log); ?>;
-var prods = <?php echo json_encode($row_production_log); ?>;
-var batt =<?php echo json_encode($row_batterie_log); ?>;
-console.log(etats);
-console.log(prods);
-console.log(batt);
+var conso = <?php echo json_encode($row_conso_log); ?>;
 
-var prod_maison1 = [];
-var prod_maison2 = [];
+console.log(conso);
 
-prods.forEach((k, i) => {
-  if (prods[i].id_maison==1) {
-    prod_maison1.push(prods[i].prod);
+
+var conso_maison1 = [];
+var conso_maison2 = [];
+
+conso.forEach((k, i) => {
+  if (conso[i].id_maison==1) {
+    conso_maison1.push(conso[i].conso);
   }else {
-    prod_maison2.push(prods[i].prod);
+    conso_maison2.push(conso[i].conso);
   }
 });
 
-for (i in prod_maison1){
+var label_1=[];
+
+for (i in conso_maison1){
   label_1.push("");
 }
 
-console.log("production maison 1 :")
-console.log(prod_maison1);
-console.log("production maison 2 :")
-console.log(prod_maison2);
+console.log("consommation maison 1 :")
+console.log(conso_maison1);
+console.log("consommation maison 2 :")
+console.log(conso_maison2);
+
+new Chart(document.getElementById("line-chart_1"), {
+type: 'line',
+data: {
+  labels: label_1,
+  datasets: [{
+      data: conso_maison1,
+      label: "Consommation maison 1",
+      borderColor: "#3e95cd",
+      fill: false
+    }
+  ]
+},
+options: {
+  title: {
+    display: true,
+    text: 'Consommation'
+  }
+}
+});
 
 </script>
 
