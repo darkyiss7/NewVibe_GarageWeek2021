@@ -14,8 +14,89 @@ session_start();
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-  <link rel="stylesheet" href="../css/bootstrap.min.css">*
-  <link rel="stylesheet" href="../css/style_client.css">
+  <link rel="stylesheet" href="../css/bootstrap.min.css">
+  <style media="screen">
+  body{
+    background-color: #DDD;
+  }
+
+  nav div ul li {
+    color: #EEE;
+  }
+
+  nav div div li{
+    padding-left: 50px;
+    font-size: 20px;
+  }
+
+  .navbar-brand{
+    font-size: 30px;
+  }
+
+  #perc_don,#perc_conso,#perc_prod,#perc_rec{
+    font-size: 50px;
+  }
+
+  .slide_right {
+      animation-name: slide_right;
+      -webkit-animation-name: slide_right;
+      animation-duration: 1s;
+      -webkit-animation-duration: 1s;
+      visibility: visible;
+    }
+
+  .slide_left{
+        animation-name: slide_left;
+        -webkit-animation-name: slide_left;
+        animation-duration: 1s;
+        -webkit-animation-duration: 1s;
+        visibility: visible;
+  }
+
+    @keyframes slide_right {
+      0% {
+        opacity: 0;
+        transform: translateX(30%);
+      }
+      100% {
+        opacity: 1;
+        transform: translateX(0%);
+      }
+    }
+    @-webkit-keyframes slide_right {
+      0% {
+        opacity: 0;
+        -webkit-transform: translateX(30%);
+      }
+      100% {
+        opacity: 1;
+        -webkit-transform: translateX(0%);
+      }
+    }
+
+    @keyframes slide_left {
+      0% {
+        opacity: 0;
+        transform: translateX(-30%);
+      }
+      100% {
+        opacity: 1;
+        transform: translateX(0%);
+      }
+    }
+
+    @-webkit-keyframes slide_left {
+      0% {
+        opacity: 0;
+        -webkit-transform: translateX(-30%);
+      }
+      100% {
+        opacity: 1;
+        -webkit-transform: translateX(0%);
+      }
+    }
+
+  </style>
   </head>
   <body>
   <nav class="navbar navbar-expand-lg navbar-dark bg-success" style="border-radius:0%;">
@@ -55,78 +136,5 @@ session_start();
 </nav>
 
 
-<script type="text/javascript">
-<?php
-
-$servername = "localhost";
-
-// REPLACE with your Database name
-$dbname = "new_vibe_db";
-// REPLACE with Database user
-$username = "root";
-// REPLACE with Database user password
-$password = "";
-
-// Create connection
-$conn = new mysqli($servername, $username, $password, $dbname);
-// Check connection
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
-
-$req1 = "SELECT * FROM production_log;";
-$req2 = "SELECT * FROM etat_log;";
-$req3 = "SELECT * FROM batterie_log;";
-
-$row_etat_log=$row_production_log=$row_batterie_log=[];
-
-if ($result1 = $conn->query($req1)) {
-    while ($row = $result1->fetch_assoc()) {
-        array_push($row_production_log,$row);
-
-    }
-    $result1->free();
-}
-if ($result2 = $conn->query($req2)) {
-    while ($row = $result2->fetch_assoc()) {
-        array_push($row_etat_log,$row);
-    }
-    $result2->free();
-}
-if ($result3 = $conn->query($req3)) {
-    while ($row = $result3->fetch_assoc()) {
-        array_push($row_batterie_log ,$row);
-    }
-    $result3->free();
-}
-
-$conn->close();
-?>
-
-var etats = <?php echo json_encode($row_etat_log); ?>;
-var prods = <?php echo json_encode($row_production_log); ?>;
-var batt =<?php echo json_encode($row_batterie_log); ?>;
-console.log(etats);
-console.log(prods);
-console.log(batt);
-
-var prod_maison1 = [];
-var prod_maison2 = [];
-
-prods.forEach((k, i) => {
-  if (prods[i].id_maison==1) {
-    prod_maison1.push(prods[i].prod);
-  }else {
-    prod_maison2.push(prods[i].prod);
-  }
-});
-
-
-console.log("production maison 1 :")
-console.log(prod_maison1);
-console.log("production maison 2 :")
-console.log(prod_maison2);
-
-</script>
   </body>
 </html>
