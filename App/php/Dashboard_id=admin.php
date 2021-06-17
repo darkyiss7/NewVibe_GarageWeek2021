@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="fr" dir="ltr">
   <head>
@@ -39,7 +42,6 @@
       <img src="../images/home.png" style="margin:auto;margin-right:10px;" width="20" height="20" alt="">
       <a>
         <?php
-                session_start();
                 if($_SESSION['id'] !== ""){
                     $user = $_SESSION['id'];
                     // afficher un message
