@@ -207,8 +207,20 @@ $conn = new mysqli($servername, $username, $password, $dbname);
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
+<<<<<<< HEAD
 
 $req1 = "SELECT * FROM production_log;";
+$req3 = "SELECT * FROM consommations_log WHERE id_maison = 1;";
+
+$row_etat_log=$row_production_log=$row_conso_log=[];
+
+if ($result1 = $conn->query($req1)) {
+    while ($row = $result1->fetch_assoc()) {
+        array_push($row_production_log,$row);
+=======
+
+$req1 = "SELECT * FROM production_log;";
+$req2 = "SELECT * FROM etat_log;";
 $req3 = "SELECT * FROM consommations_log WHERE id_maison = 1;";
 
 $row_etat_log=$row_production_log=$row_conso_log=[];
@@ -220,7 +232,12 @@ if ($result1 = $conn->query($req1)) {
     }
     $result1->free();
 }
-
+if ($result2 = $conn->query($req2)) {
+    while ($row = $result2->fetch_assoc()) {
+        array_push($row_etat_log,$row);
+    }
+    $result2->free();
+}
 if ($result3 = $conn->query($req3)) {
     while ($row = $result3->fetch_assoc()) {
         array_push($row_conso_log ,$row);
@@ -238,7 +255,48 @@ var conso = <?php echo json_encode($row_conso_log); ?>;
 console.log(etats);
 console.log(prods);
 console.log(conso);
+>>>>>>> parent of bad2ccd (theo)
 
+    }
+    $result1->free();
+}
+
+<<<<<<< HEAD
+if ($result3 = $conn->query($req3)) {
+    while ($row = $result3->fetch_assoc()) {
+        array_push($row_conso_log ,$row);
+    }
+    $result3->free();
+}
+
+$conn->close();
+?>
+
+var etats = <?php echo json_encode($row_etat_log); ?>;
+var prods = <?php echo json_encode($row_production_log); ?>;
+var conso = <?php echo json_encode($row_conso_log); ?>;
+=======
+var prod_maison1 = [];
+var prod_maison2 = [];
+
+prods.forEach((k, i) => {
+  if (prods[i].id_maison==1) {
+    prod_maison1.push(prods[i].prod);
+  }else {
+    prod_maison2.push(prods[i].prod);
+  }
+});
+
+console.log(prod_maison1[prod_maison1.length-1]);
+document.getElementById('perc_prod').innerHTML = prod_maison1[prod_maison1.length-1] +" J";
+document.getElementById('perc_conso').innerHTML = conso[conso.length-1].conso +" J";
+>>>>>>> parent of bad2ccd (theo)
+
+console.log(etats);
+console.log(prods);
+console.log(conso);
+
+<<<<<<< HEAD
 
 var prod_maison1 = [];
 var prod_maison2 = [];
@@ -261,6 +319,13 @@ console.log(prod_maison1);
 console.log("production maison 2 :")
 console.log(prod_maison2);
 
+=======
+console.log("production maison 1 :")
+console.log(prod_maison1);
+console.log("production maison 2 :")
+console.log(prod_maison2);
+
+>>>>>>> parent of bad2ccd (theo)
 }
 
 data_update();
